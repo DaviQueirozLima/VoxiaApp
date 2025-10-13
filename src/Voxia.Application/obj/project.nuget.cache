@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3PoNOfmGZU4=",
+  "success": true,
+  "projectFilePath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Application\\Voxia.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Davi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Davi\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
