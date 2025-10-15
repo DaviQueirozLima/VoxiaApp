@@ -1,0 +1,12 @@
+C:\Workspace\VoxiaApp\src\Voxia.Exception\bin\Debug\net9.0\Voxia.Exception.deps.json
+C:\Workspace\VoxiaApp\src\Voxia.Exception\bin\Debug\net9.0\Voxia.Exception.dll
+C:\Workspace\VoxiaApp\src\Voxia.Exception\bin\Debug\net9.0\Voxia.Exception.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.AssemblyInfoInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.AssemblyInfo.cs
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.csproj.CoreCompileInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.sourcelink.json
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.dll
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\refint\Voxia.Exception.dll
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\Voxia.Exception.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Exception\obj\Debug\net9.0\ref\Voxia.Exception.dll
