@@ -1,0 +1,12 @@
+C:\Workspace\VoxiaApp\src\Voxia.Domain\bin\Debug\net9.0\Voxia.Domain.deps.json
+C:\Workspace\VoxiaApp\src\Voxia.Domain\bin\Debug\net9.0\Voxia.Domain.dll
+C:\Workspace\VoxiaApp\src\Voxia.Domain\bin\Debug\net9.0\Voxia.Domain.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.AssemblyInfoInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.AssemblyInfo.cs
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.csproj.CoreCompileInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.sourcelink.json
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.dll
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\refint\Voxia.Domain.dll
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\Voxia.Domain.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Domain\obj\Debug\net9.0\ref\Voxia.Domain.dll
