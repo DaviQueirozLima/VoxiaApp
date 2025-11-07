@@ -8,23 +8,23 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Davi\\.nuget\\packages\\": {},
+    "C:\\Users\\kayol\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj",
+      "projectUniqueName": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj",
       "projectName": "Voxia.Communication",
-      "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj",
-      "packagesPath": "C:\\Users\\Davi\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Communication\\obj\\",
+      "projectPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj",
+      "packagesPath": "C:\\Users\\kayol\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Communication\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Davi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kayol\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
