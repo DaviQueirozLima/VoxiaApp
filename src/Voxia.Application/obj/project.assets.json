@@ -731,23 +731,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kayol\\.nuget\\packages\\": {},
+    "C:\\Users\\Davi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Application\\Voxia.Application.csproj",
+      "projectUniqueName": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Application\\Voxia.Application.csproj",
       "projectName": "Voxia.Application",
-      "projectPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Application\\Voxia.Application.csproj",
-      "packagesPath": "C:\\Users\\kayol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Application\\obj\\",
+      "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Application\\Voxia.Application.csproj",
+      "packagesPath": "C:\\Users\\Davi\\.nuget\\packages\\",
+      "outputPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kayol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Davi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -756,21 +756,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj": {
-              "projectPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj"
+            "C:\\Workspace\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj": {
+              "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Communication\\Voxia.Communication.csproj"
             },
-            "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj": {
-              "projectPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj"
+            "C:\\Workspace\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj": {
+              "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj"
             },
-            "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj": {
-              "projectPath": "C:\\Users\\kayol\\Source\\Repos\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj"
+            "C:\\Workspace\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj": {
+              "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj"
             }
           }
         }

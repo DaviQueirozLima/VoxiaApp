@@ -31,10 +31,12 @@ namespace Voxia.Application.UseCases.Auth
             var expiration = DateTime.UtcNow.AddHours(2);
 
             var token = new JwtSecurityToken(
-                expires: expiration,
-                signingCredentials: creds,
-                claims: claims
-            );
+       issuer: "VoxiaAPI",
+       audience: "VoxiaApp",
+       expires: expiration,
+       signingCredentials: creds,
+       claims: claims
+   );
 
             return new JwtTokenDto
             {

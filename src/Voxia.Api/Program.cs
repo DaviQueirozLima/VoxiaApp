@@ -33,7 +33,6 @@ builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
     var configuration = provider.GetRequiredService<IConfiguration>();
     return new GenerateJwtUseCase(configuration["Jwt:Key"]!);
 });
-
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
