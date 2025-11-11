@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Voxia.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b85bbe762e6c82d0a24e9ca907a9792713da31f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58a0bdee472f297bdab53d8587570b6276c7d061")]
 [assembly: System.Reflection.AssemblyProductAttribute("Voxia.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Voxia.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

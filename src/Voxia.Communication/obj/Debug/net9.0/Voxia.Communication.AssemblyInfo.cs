@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Voxia.Communication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2cb1749817ae662a115abfacb18dd1a91faef1d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58a0bdee472f297bdab53d8587570b6276c7d061")]
 [assembly: System.Reflection.AssemblyProductAttribute("Voxia.Communication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Voxia.Communication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
