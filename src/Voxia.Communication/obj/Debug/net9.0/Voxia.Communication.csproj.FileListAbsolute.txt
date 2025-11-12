@@ -1,0 +1,12 @@
+C:\Workspace\VoxiaApp\src\Voxia.Communication\bin\Debug\net9.0\Voxia.Communication.deps.json
+C:\Workspace\VoxiaApp\src\Voxia.Communication\bin\Debug\net9.0\Voxia.Communication.dll
+C:\Workspace\VoxiaApp\src\Voxia.Communication\bin\Debug\net9.0\Voxia.Communication.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.AssemblyInfoInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.AssemblyInfo.cs
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.csproj.CoreCompileInputs.cache
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.sourcelink.json
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.dll
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\refint\Voxia.Communication.dll
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\Voxia.Communication.pdb
+C:\Workspace\VoxiaApp\src\Voxia.Communication\obj\Debug\net9.0\ref\Voxia.Communication.dll
