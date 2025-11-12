@@ -4,6 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a1d34b05-75da-4c75-8dd3-bf42c787e223</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
@@ -25,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Voxia.Application\Voxia.Application.csproj" />
     <ProjectReference Include="..\Voxia.Communication\Voxia.Communication.csproj" />
-    <ProjectReference Include="..\Voxia.Exception\Voxia.Exception.csproj" />
     <ProjectReference Include="..\Voxia.Infrastructure\Voxia.Infrastructure.csproj" />
   </ItemGroup>
 
