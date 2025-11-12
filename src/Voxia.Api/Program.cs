@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.IO;
 using System.Text;
 using Voxia.Application.Services;
 using Voxia.Application.UseCases.Auth;
@@ -18,28 +17,29 @@ using Voxia.Infrastructure.Repositories.GoogleRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// ==================== Serviços ====================
+
+// Controllers
 builder.Services.AddControllers();
 
-// Swagger (documentação e testes da API)
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Banco de dados
+// Banco de dados (Supabase / PostgreSQL)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
-      b => b.MigrationsAssembly("Voxia.Infrastructure"))
+        b => b.MigrationsAssembly("Voxia.Infrastructure"))
 );
 
+// Google Auth
 var googleClientIds = builder.Configuration
     .GetSection("GoogleAuth:ClientIds")
     .Get<string[]>();
 
 builder.Services.AddSingleton(new GoogleAuthService(googleClientIds!));
 
-
-
-// Injeções de dependência
+// Injeção de dependências
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IGoogleLoginUseCase, GoogleLoginUseCase>();
 builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
@@ -49,9 +49,10 @@ builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
 });
 builder.Services.AddScoped<ICardsRepositories, CardsRepositories>();
 builder.Services.AddScoped<ICardService, CardService>();
-builder.Services.AddHttpContextAccessor(); // necessário para IHttpContextAccessor
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContext, UserContext>();
 
+// JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -74,6 +75,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Swagger com JWT
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -99,59 +101,65 @@ builder.Services.AddSwaggerGen(c =>
     };
 
     c.AddSecurityDefinition("Bearer", securityScheme);
-
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        {
-            securityScheme, new string[] { }
-        }
+        { securityScheme, new string[] { } }
     });
 });
 
+// CORS (para o app mobile)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMobile",
         policy => policy
             .WithOrigins(
-                "http://localhost:19006", // Expo (modo dev)
-                "http://localhost:8081",  // Metro bundler
-                "exp://127.0.0.1:19000",  // Expo local
-                "https://seuappmobile.com" // quando tiver deploy
+                "http://localhost:19006",
+                "http://localhost:8081",
+                "exp://127.0.0.1:19000",
+                "https://seuappmobile.com"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
 });
 
+// ==================== App ====================
 
 var app = builder.Build();
 
-// Configurar arquivos estáticos para a pasta Assets
-app.UseStaticFiles(); // mantém wwwroot padrão (se existir)
+// Middleware de arquivos estáticos (Assets)
+var assetsPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
+if (!Directory.Exists(assetsPath))
+{
+    Directory.CreateDirectory(assetsPath);
+}
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "Assets")),
+    FileProvider = new PhysicalFileProvider(assetsPath),
     RequestPath = "/assets"
 });
 
-if (app.Environment.IsDevelopment())
+// Swagger (Render vai rodar em Production, então deixa sempre ligado)
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "VoxiaApp v1");
-        c.RoutePrefix = "swagger";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "VoxiaApp v1");
+    c.RoutePrefix = "swagger";
+});
 
 app.UseHttpsRedirection();
-
 app.UseCors("AllowMobile");
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//  Migração automática (sem precisar do dotnet ef)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
