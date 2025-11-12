@@ -31,9 +31,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
       b => b.MigrationsAssembly("Voxia.Infrastructure"))
 );
 
+var googleClientIds = builder.Configuration
+    .GetSection("GoogleAuth:ClientIds")
+    .Get<string[]>();
+
+builder.Services.AddSingleton(new GoogleAuthService(googleClientIds!));
+
+
+
 // Injeções de dependência
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddSingleton(new GoogleAuthService("9415405413-kv69kvl6ieqq7gvjmsh8dd33aknkfsnk.apps.googleusercontent.com"));
 builder.Services.AddScoped<IGoogleLoginUseCase, GoogleLoginUseCase>();
 builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
 {
@@ -101,6 +108,22 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMobile",
+        policy => policy
+            .WithOrigins(
+                "http://localhost:19006", // Expo (modo dev)
+                "http://localhost:8081",  // Metro bundler
+                "exp://127.0.0.1:19000",  // Expo local
+                "https://seuappmobile.com" // quando tiver deploy
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+});
+
+
 var app = builder.Build();
 
 // Configurar arquivos estáticos para a pasta Assets
@@ -123,6 +146,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowMobile");
 
 app.UseAuthentication();
 app.UseAuthorization();

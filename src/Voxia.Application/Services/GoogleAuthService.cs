@@ -4,11 +4,12 @@ namespace Voxia.Application.Services
 {
     public class GoogleAuthService
     {
-        private readonly string _clientId;
+        private readonly string[] _clientIds;
 
-        public GoogleAuthService(string clientId)
+        // Agora aceita vários IDs
+        public GoogleAuthService(string[] clientIds)
         {
-            _clientId = clientId;
+            _clientIds = clientIds;
         }
 
         public async Task<GoogleJsonWebSignature.Payload?> ValidateTokenAsync(string idToken)
@@ -17,7 +18,7 @@ namespace Voxia.Application.Services
             {
                 var settings = new GoogleJsonWebSignature.ValidationSettings()
                 {
-                    Audience = new[] { _clientId }
+                    Audience = _clientIds // aceita tokens de qualquer um dos IDs
                 };
 
                 var payload = await GoogleJsonWebSignature.ValidateAsync(idToken, settings);
