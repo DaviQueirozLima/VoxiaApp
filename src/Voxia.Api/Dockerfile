@@ -48,10 +48,3 @@ COPY --from=publish /app/publish .
 
 # ?? Copia a pasta de Assets pro container
 COPY src/Voxia.Api/Assets /app/Assets
-
-# =============================
-# Executa as migrations automaticamente
-# =============================
-# As variáveis de ambiente (como ConnectionStrings__DefaultConnection)
-# serão fornecidas pelo Render.
-CMD dotnet ef database update -p Voxia.Infrastructure -s Voxia.Api && dotnet Voxia.Api.dll
