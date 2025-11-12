@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Voxia.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c228e6ec2153e8721317f1477d13639f7d14b6ba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7966659697b8510ae3b7e55e2a7c051fa1accf6f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Voxia.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Voxia.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

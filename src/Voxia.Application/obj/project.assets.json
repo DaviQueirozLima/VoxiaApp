@@ -330,16 +330,6 @@
         "runtime": {
           "bin/placeholder/Voxia.Domain.dll": {}
         }
-      },
-      "Voxia.Exception/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/Voxia.Exception.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Voxia.Exception.dll": {}
-        }
       }
     }
   },
@@ -861,11 +851,6 @@
       "type": "project",
       "path": "../Voxia.Domain/Voxia.Domain.csproj",
       "msbuildProject": "../Voxia.Domain/Voxia.Domain.csproj"
-    },
-    "Voxia.Exception/1.0.0": {
-      "type": "project",
-      "path": "../Voxia.Exception/Voxia.Exception.csproj",
-      "msbuildProject": "../Voxia.Exception/Voxia.Exception.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -873,8 +858,7 @@
       "BCrypt.Net-Next >= 4.0.3",
       "FluentValidation >= 12.0.0",
       "Google.Apis.Auth >= 1.72.0",
-      "Voxia.Domain >= 1.0.0",
-      "Voxia.Exception >= 1.0.0"
+      "Voxia.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -911,9 +895,6 @@
           "projectReferences": {
             "C:\\Workspace\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj": {
               "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Domain\\Voxia.Domain.csproj"
-            },
-            "C:\\Workspace\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj": {
-              "projectPath": "C:\\Workspace\\VoxiaApp\\src\\Voxia.Exception\\Voxia.Exception.csproj"
             }
           }
         }
