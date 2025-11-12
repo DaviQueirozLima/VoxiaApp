@@ -1,33 +1,57 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
+# =============================
+# Base image (runtime)
+# =============================
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
-# This stage is used to build the service project
+# =============================
+# Build image
+# =============================
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
+# Copia os .csproj de cada camada
 COPY ["src/Voxia.Api/Voxia.Api.csproj", "src/Voxia.Api/"]
 COPY ["src/Voxia.Application/Voxia.Application.csproj", "src/Voxia.Application/"]
 COPY ["src/Voxia.Domain/Voxia.Domain.csproj", "src/Voxia.Domain/"]
 COPY ["src/Voxia.Infrastructure/Voxia.Infrastructure.csproj", "src/Voxia.Infrastructure/"]
+
+# Restaura dependências
 RUN dotnet restore "./src/Voxia.Api/Voxia.Api.csproj"
+
+# Copia tudo
 COPY . .
+
 WORKDIR "/src/src/Voxia.Api"
+
+# Compila o projeto
 RUN dotnet build "./Voxia.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
+# =============================
+# Publish image
+# =============================
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Voxia.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+# =============================
+# Final image
+# =============================
 FROM base AS final
 WORKDIR /app
+
+# Copia a build final
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Voxia.Api.dll"]
+
+# ?? Copia a pasta de Assets pro container
+COPY src/Voxia.Api/Assets /app/Assets
+
+# =============================
+# Executa as migrations automaticamente
+# =============================
+# As variáveis de ambiente (como ConnectionStrings__DefaultConnection)
+# serão fornecidas pelo Render.
+CMD dotnet ef database update -p Voxia.Infrastructure -s Voxia.Api && dotnet Voxia.Api.dll
