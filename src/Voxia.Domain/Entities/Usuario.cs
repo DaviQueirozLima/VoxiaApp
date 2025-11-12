@@ -12,6 +12,8 @@
 
 
         //Relacionamentos
+        public ICollection<Card> Cards { get; set; } = new List<Card>();
+
         public ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
         public ICollection<Reproducao> Reproducoes { get; set; } = new List<Reproducao>();
     }

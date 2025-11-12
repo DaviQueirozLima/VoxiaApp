@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Voxia.Infrastructure\Voxia.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\Audios\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,184 @@
+﻿using Microsoft.AspNetCore.Http;
+using Voxia.Domain.DTOs.Cards;
+using Voxia.Domain.Entities;
+using Voxia.Domain.HttpContext;
+using Voxia.Domain.Repositories.CardsRepositories;
+
+namespace Voxia.Application.UseCases.Cards
+{
+    public class CardService : ICardService
+    {
+        private readonly ICardsRepositories _cardsRepository;
+        private readonly IUserContext _userContext;
+
+        private readonly string _assetsPath;
+
+        public CardService(ICardsRepositories cardsRepository, IUserContext userContext)
+        {
+            _cardsRepository = cardsRepository;
+            _userContext = userContext;
+
+            _assetsPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
+            Directory.CreateDirectory(_assetsPath);
+            Directory.CreateDirectory(Path.Combine(_assetsPath, "Imagens"));
+            Directory.CreateDirectory(Path.Combine(_assetsPath, "Audios"));
+        }
+
+        public async Task<List<CardDto>> ObterTodosAsync()
+        {
+            var cards = await _cardsRepository.ObterTodosAsync();
+            return cards.Select(MapToDto).ToList();
+        }
+
+        public async Task<CardDto?> ObterPorIdAsync(Guid cardId)
+        {
+            var card = await _cardsRepository.ObterPorIdAsync(cardId);
+            return card is null ? null : MapToDto(card);
+        }
+
+        public async Task<List<CardDto>> ObterPorUsuarioAsync(Guid usuarioId)
+        {
+            var cards = await _cardsRepository.ObterPorUsuarioAsync(usuarioId);
+            return cards.Select(MapToDto).ToList();
+        }
+
+        public async Task<CardDto> AdicionarAsync(CardCreateDto dto)
+        {
+            var usuarioId = _userContext.GetCurrentUserId();
+
+            var imagemPath = dto.Imagem != null ? await SalvarArquivoAsync(dto.Imagem, "Imagens") : string.Empty;
+            var audioPath = dto.Audio != null ? await SalvarArquivoAsync(dto.Audio, "Audios") : string.Empty;
+
+            var card = new Card
+            {
+                Nome = dto.Nome,
+                CategoriaId = dto.CategoriaId,
+                UsuarioId = usuarioId,
+                Imagem = imagemPath,
+                Audio = audioPath
+            };
+
+            var novoCard = await _cardsRepository.AdicionarAsync(card);
+            return MapToDto(novoCard);
+        }
+
+        public async Task AtualizarAsync(Guid cardId, CardCreateDto dto)
+        {
+            var card = await _cardsRepository.ObterPorIdAsync(cardId);
+            if (card is null)
+                throw new KeyNotFoundException("Card não encontrado");
+
+            var usuarioId = _userContext.GetCurrentUserId();
+
+            // 🔒 Impede alteração de cards pré-definidos ou de outro usuário
+            if (card.UsuarioId == null || card.UsuarioId != usuarioId)
+                throw new UnauthorizedAccessException("Você não tem permissão para alterar este card.");
+
+            card.Nome = dto.Nome;
+            card.CategoriaId = dto.CategoriaId;
+
+            // Atualizar imagem
+            if (dto.Imagem != null)
+            {
+                if (!string.IsNullOrEmpty(card.Imagem))
+                {
+                    var caminhoAntigo = Path.Combine(Directory.GetCurrentDirectory(), card.Imagem.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                    if (File.Exists(caminhoAntigo))
+                        File.Delete(caminhoAntigo);
+                }
+
+                card.Imagem = await SalvarArquivoAsync(dto.Imagem, "Imagens");
+            }
+
+            // Atualizar áudio
+            if (dto.Audio != null)
+            {
+                if (!string.IsNullOrEmpty(card.Audio))
+                {
+                    var caminhoAntigo = Path.Combine(Directory.GetCurrentDirectory(), card.Audio.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                    if (File.Exists(caminhoAntigo))
+                        File.Delete(caminhoAntigo);
+                }
+
+                card.Audio = await SalvarArquivoAsync(dto.Audio, "Audios");
+            }
+
+            await _cardsRepository.AtualizarAsync(card);
+        }
+
+        public async Task RemoverAsync(Guid cardId)
+        {
+            var card = await _cardsRepository.ObterPorIdAsync(cardId);
+            if (card is null)
+                throw new KeyNotFoundException("Card não encontrado");
+
+            var usuarioId = _userContext.GetCurrentUserId();
+
+            // 🔒 Impede exclusão de cards pré-definidos ou de outro usuário
+            if (card.UsuarioId == null || card.UsuarioId != usuarioId)
+                throw new UnauthorizedAccessException("Você não tem permissão para excluir este card.");
+
+            // Apagar arquivos físicos
+            if (!string.IsNullOrEmpty(card.Imagem))
+            {
+                var caminhoImagem = Path.Combine(Directory.GetCurrentDirectory(), card.Imagem.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                if (File.Exists(caminhoImagem))
+                    File.Delete(caminhoImagem);
+            }
+
+            if (!string.IsNullOrEmpty(card.Audio))
+            {
+                var caminhoAudio = Path.Combine(Directory.GetCurrentDirectory(), card.Audio.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                if (File.Exists(caminhoAudio))
+                    File.Delete(caminhoAudio);
+            }
+
+            await _cardsRepository.RemoverAsync(card);
+        }
+
+        public async Task IncrementarCliquesAsync(Guid cardId)
+        {
+            var card = await _cardsRepository.ObterPorIdAsync(cardId);
+            if (card is null)
+                throw new KeyNotFoundException("Card não encontrado");
+
+            await _cardsRepository.IncrementarCliquesAsync(card);
+        }
+
+        public async Task<List<CardDto>> ObterMaisUsadosAsync(int quantidade = 5)
+        {
+            var cards = await _cardsRepository.ObterMaisUsadosAsync(quantidade);
+            return cards.Select(MapToDto).ToList();
+        }
+
+        // MÉTODOS AUXILIARES
+        private CardDto MapToDto(Card card)
+        {
+            return new CardDto
+            {
+                CardId = card.CardId,
+                Nome = card.Nome,
+                CategoriaId = card.CategoriaId,
+                UsuarioId = card.UsuarioId,
+                Imagem = card.Imagem,
+                Audio = card.Audio,
+                ContagemCliques = card.ContagemCliques,
+                DataCriacao = card.DataCriacao
+            };
+        }
+
+        private async Task<string> SalvarArquivoAsync(IFormFile file, string subPasta)
+        {
+            var pastaDestino = Path.Combine(_assetsPath, subPasta);
+            Directory.CreateDirectory(pastaDestino);
+
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(pastaDestino, fileName);
+
+            using var stream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            return $"/assets/{subPasta}/{fileName}";
+        }
+    }
+}
