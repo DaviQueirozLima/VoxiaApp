@@ -1,12 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IO;
 using System.Text;
 using Voxia.Application.Services;
 using Voxia.Application.UseCases.Auth;
+using Voxia.Application.UseCases.Cards;
+using Voxia.Domain.HttpContext;
+using Voxia.Domain.Repositories.CardsRepositories;
 using Voxia.Domain.Repositories.GoogleRepositories;
 using Voxia.Infrastructure.Data;
+using Voxia.Infrastructure.HttpContext;
+using Voxia.Infrastructure.Repositories;
 using Voxia.Infrastructure.Repositories.GoogleRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +40,11 @@ builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
     var configuration = provider.GetRequiredService<IConfiguration>();
     return new GenerateJwtUseCase(configuration["Jwt:Key"]!);
 });
+builder.Services.AddScoped<ICardsRepositories, CardsRepositories>();
+builder.Services.AddScoped<ICardService, CardService>();
+builder.Services.AddHttpContextAccessor(); // necessário para IHttpContextAccessor
+builder.Services.AddScoped<IUserContext, UserContext>();
+
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -91,6 +103,15 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Configurar arquivos estáticos para a pasta Assets
+app.UseStaticFiles(); // mantém wwwroot padrão (se existir)
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Assets")),
+    RequestPath = "/assets"
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -104,12 +125,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
-
-

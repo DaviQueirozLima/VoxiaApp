@@ -27,12 +27,19 @@ namespace Voxia.Infrastructure.Data.Configurations
             builder.Property(u => u.DataCriacao)
                 .IsRequired();
 
-            // Relacionamentos
+            // Relacionamento com Cards
+            builder.HasMany(u => u.Cards)
+                .WithOne(c => c.Usuario)
+                .HasForeignKey(c => c.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull); // garante que cards criados não sejam apagados
+
+            // Relacionamentos com Favoritos
             builder.HasMany(u => u.Favoritos)
                 .WithOne(f => f.Usuario)
                 .HasForeignKey(f => f.UsuarioId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Relacionamentos com Reproducoes
             builder.HasMany(u => u.Reproducoes)
                 .WithOne(r => r.Usuario)
                 .HasForeignKey(r => r.UsuarioId)

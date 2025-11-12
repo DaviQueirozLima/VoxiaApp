@@ -12,10 +12,12 @@
 
         public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
 
-        //Relacionamentos 
+        // Relacionamentos
+        public Guid? UsuarioId { get; set; }  // nullable, só terá valor para cards criados por usuário
+        public Usuario? Usuario { get; set; } // nullable também
+
         public Categoria Categoria { get; set; } = null!;
         public ICollection<Favorito> Favoritos { get; set; } = new List<Favorito>();
         public ICollection<Reproducao> Reproducoes { get; set; } = new List<Reproducao>();
-
     }
 }

@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Voxia.Communication\Voxia.Communication.csproj" />
     <ProjectReference Include="..\Voxia.Domain\Voxia.Domain.csproj" />
     <ProjectReference Include="..\Voxia.Exception\Voxia.Exception.csproj" />
   </ItemGroup>

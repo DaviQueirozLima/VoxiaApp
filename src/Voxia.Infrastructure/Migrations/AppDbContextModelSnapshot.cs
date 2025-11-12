@@ -52,9 +52,14 @@ namespace Voxia.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<Guid?>("UsuarioId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("CardId");
 
                     b.HasIndex("CategoriaId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Cards");
                 });
@@ -167,7 +172,14 @@ namespace Voxia.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Voxia.Domain.Entities.Usuario", "Usuario")
+                        .WithMany("Cards")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Categoria");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Voxia.Domain.Entities.Favorito", b =>
@@ -222,6 +234,8 @@ namespace Voxia.Infrastructure.Migrations
 
             modelBuilder.Entity("Voxia.Domain.Entities.Usuario", b =>
                 {
+                    b.Navigation("Cards");
+
                     b.Navigation("Favoritos");
 
                     b.Navigation("Reproducoes");

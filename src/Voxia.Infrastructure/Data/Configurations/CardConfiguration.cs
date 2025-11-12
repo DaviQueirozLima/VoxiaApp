@@ -31,6 +31,12 @@ namespace Voxia.Infrastructure.Data.Configurations
                 .HasForeignKey(c => c.CategoriaId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Relacionamento com Usuario (nullable)
+            builder.HasOne(c => c.Usuario)
+                .WithMany(u => u.Cards)
+                .HasForeignKey(c => c.UsuarioId)
+                .OnDelete(DeleteBehavior.SetNull); // cards padrões não serão deletados
+
             // Relacionamento com Favoritos
             builder.HasMany(c => c.Favoritos)
                 .WithOne(f => f.Card)
