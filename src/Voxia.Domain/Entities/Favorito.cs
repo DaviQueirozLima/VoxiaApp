@@ -9,7 +9,7 @@
         public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
 
         //Relacionamentos
-        public Usuario? Usuario { get; set; } = null!;
-        public Card? Card { get; set; } = null!;
+        public Usuario Usuario { get; set; } = null!;
+        public Card Card { get; set; } = null!;
     }
 }

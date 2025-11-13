@@ -9,14 +9,14 @@ using Voxia.Application.UseCases;
 using Voxia.Application.UseCases.Auth;
 using Voxia.Application.UseCases.Cards;
 using Voxia.Domain.HttpContext;
+using Voxia.Domain.Interfaces;
 using Voxia.Domain.Repositories.CardsRepositories;
 using Voxia.Domain.Repositories.CategoriaRepositories;
-using Voxia.Domain.Repositories.GoogleRepositories;
 using Voxia.Infrastructure.Data;
 using Voxia.Infrastructure.HttpContext;
-using Voxia.Infrastructure.Repositories;    
+using Voxia.Infrastructure.Repositories;
 using Voxia.Infrastructure.Repositories.CategoriaRepositories;
-using Voxia.Infrastructure.Repositories.GoogleRepositories;
+using Voxia.Infrastructure.Repositories.UsuarioRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,11 +40,10 @@ var googleClientIds = builder.Configuration
     .GetSection("GoogleAuth:ClientIds")
     .Get<string[]>();
 
-builder.Services.AddSingleton(new GoogleAuthService(googleClientIds!));
 
 // Injeção de dependências
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<IGoogleLoginUseCase, GoogleLoginUseCase>();
+
 builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();
@@ -56,6 +55,13 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContext, UserContext>();
+builder.Services.AddScoped<IUsuarioService>(provider =>
+{
+    var usuarioRepo = provider.GetRequiredService<IUsuarioRepository>();
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var jwtSecret = configuration["Jwt:Key"]!;
+    return new UsuarioService(usuarioRepo, jwtSecret);
+});
 
 // JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt");
