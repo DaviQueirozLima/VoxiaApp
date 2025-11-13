@@ -14,7 +14,7 @@ using Voxia.Domain.Repositories.CategoriaRepositories;
 using Voxia.Domain.Repositories.GoogleRepositories;
 using Voxia.Infrastructure.Data;
 using Voxia.Infrastructure.HttpContext;
-using Voxia.Infrastructure.Repositories;
+using Voxia.Infrastructure.Repositories;    
 using Voxia.Infrastructure.Repositories.CategoriaRepositories;
 using Voxia.Infrastructure.Repositories.GoogleRepositories;
 
@@ -121,7 +121,7 @@ builder.Services.AddCors(options =>
                 "http://localhost:19006",
                 "http://localhost:8081",
                 "exp://127.0.0.1:19000",
-                "https://seuappmobile.com"
+                "https://auth.expo.io"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
