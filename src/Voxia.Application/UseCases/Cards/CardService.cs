@@ -158,6 +158,7 @@ namespace Voxia.Application.UseCases.Cards
             {
                 CardId = card.CardId,
                 Nome = card.Nome,
+                CategoriaNome = card.Categoria?.Nome ?? string.Empty,
                 CategoriaId = card.CategoriaId,
                 UsuarioId = card.UsuarioId,
                 Imagem = card.Imagem,
