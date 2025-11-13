@@ -36,6 +36,15 @@ public class CardsRepositories : ICardsRepositories
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Card>> ObterCardsPorCategoriaAsync(Guid categoriaId)
+    {
+        return await _context.Cards
+            .AsNoTracking()
+            .Where(c => c.CategoriaId == categoriaId)
+            .Include(c => c.Categoria)
+            .ToListAsync();
+    }
+
     public async Task<Card> AdicionarAsync(Card card)
     {
         _context.Cards.Add(card);
