@@ -5,14 +5,17 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Voxia.Application.Services;
+using Voxia.Application.UseCases;
 using Voxia.Application.UseCases.Auth;
 using Voxia.Application.UseCases.Cards;
 using Voxia.Domain.HttpContext;
 using Voxia.Domain.Repositories.CardsRepositories;
+using Voxia.Domain.Repositories.CategoriaRepositories;
 using Voxia.Domain.Repositories.GoogleRepositories;
 using Voxia.Infrastructure.Data;
 using Voxia.Infrastructure.HttpContext;
-using Voxia.Infrastructure.Repositories;
+using Voxia.Infrastructure.Repositories;    
+using Voxia.Infrastructure.Repositories.CategoriaRepositories;
 using Voxia.Infrastructure.Repositories.GoogleRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +51,8 @@ builder.Services.AddScoped<IGenerateJwtUseCase>(provider =>
     return new GenerateJwtUseCase(configuration["Jwt:Key"]!);
 });
 builder.Services.AddScoped<ICardsRepositories, CardsRepositories>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContext, UserContext>();
@@ -116,7 +121,7 @@ builder.Services.AddCors(options =>
                 "http://localhost:19006",
                 "http://localhost:8081",
                 "exp://127.0.0.1:19000",
-                "https://seuappmobile.com"
+                "https://auth.expo.io"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
